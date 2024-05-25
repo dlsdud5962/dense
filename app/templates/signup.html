@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/signup.css') }}">
+</head>
+<body>
+    <div class="signup-container">
+        <h2>Sign Up</h2>
+        <form id="signup-form">
+            <input type="text" id="name" placeholder="Your Name" required>
+            <input type="text" id="userid" placeholder="Your ID" required>
+            <input type="password" id="pw" placeholder="Your Password" required>
+            <button type="button" onclick="signup()">Sign Up</button>
+        </form>
+        <div class="back-to-login">
+            <p>Already have an account? <a href="/main">Login here</a></p>
+        </div>
+    </div>
+
+    <!-- axios script -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    
+    <script>
+    async function signup() {
+        const name = document.getElementById('name').value;
+        const userid = document.getElementById('userid').value;
+        const pw = document.getElementById('pw').value;
+
+        try {
+            const res = await axios.post('/main/signup', {
+                name: name,
+                userid: userid,
+                pw: pw
+            });
+            console.log(res.data);
+            if (res.data.message === 'User registered successfully') {
+                alert('Sign up successful');
+                window.location.href = '/main';
+            } else {
+                throw new Error('Sign up failed');
+            }
+        } catch (error) {
+            console.error('Sign up error:', error);
+            alert('Sign up failed');
+        }
+    }
+    </script>
+</body>
+</html>

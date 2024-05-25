@@ -1,0 +1,61 @@
+/* Add this to your existing CSS file or create a new file */
+
+/* General button styles */
+.button, .upload_button {
+    width: calc(100% - 22px); /* Match the width of input fields */
+    padding: 10px 24px; /* Some padding */
+    text-align: center; /* Center the text */
+    text-decoration: none; /* Remove underline */
+    display: inline-block; /* Make the link look like a button */
+    font-size: 16px; /* Increase font size */
+    margin: 10px 0; /* Add some margin */
+    cursor: pointer; /* Add a pointer cursor on hover */
+    border-radius: 8px; /* Rounded corners */
+    transition-duration: 0.4s; /* Transition effect */
+}
+
+/* Specific styles for the login button */
+.button {
+    background-color: #4CAF50; /* Green background */
+    border: none; /* Remove borders */
+    color: white; /* White text */
+}
+
+.button:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+
+/* Specific styles for the upload button */
+.upload_button {
+    background-color: #28a745; /* Green background */
+    border: none; /* Remove borders */
+    color: white; /* White text */
+}
+
+.upload_button:hover {
+    background-color: #218838; /* Darker green on hover */
+}
+
+/* Specific styles for the login form */
+.login-section {
+    background-color: #f7f7f7; /* Light grey background */
+    padding: 20px; /* Some padding */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+}
+
+.login-section h2 {
+    margin-bottom: 20px; /* Some margin below the heading */
+    color: #333; /* Dark text color */
+}
+
+.login-section input[type="text"],
+.login-section input[type="password"] {
+    width: calc(100% - 22px); /* Full width with padding taken into account */
+    padding: 10px; /* Padding inside the input */
+    margin: 10px 0; /* Margin around the input */
+    border: 1px solid #ccc; /* Light grey border */
+    border-radius: 4px; /* Rounded corners */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    font-size: 16px; /* Larger font size */
+}

@@ -1,0 +1,124 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    height: 100vh;
+    background-color: #f0f0f0;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+}
+
+.sidebar {
+    position: fixed; /* Fix the sidebar to the left */
+    top: 0;
+    left: 0;
+    height: 100%; /* Make it full height */
+    width: 250px; /* Adjust width if needed */
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    box-sizing: border-box;
+}
+
+.sidebar h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin-bottom: 10px;
+}
+
+.sidebar ul li a {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    padding: 10px;
+    border-radius: 4px;
+    transition: background 0.3s;
+}
+
+.sidebar ul li a:hover {
+    background-color: #575757;
+}
+
+.sidebar ul li.genre a {
+    font-weight: bold;
+    background-color: #444;
+}
+
+.title-box {
+    background-color: #fff; /* White background for the title */
+    color: #000; /* Black text color for the title */
+    padding: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+    border-radius: 4px;
+}
+
+.title-box h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.main-content {
+    margin-left: 200px; /* Adjust according to sidebar width + padding */
+    padding: 20px;
+    flex: 1;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+.video-card {
+    background-color: #fff;
+    border-radius: 4px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.video-card h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.video-card p {
+    margin: 10px 0 0;
+}
+
+.login-section {
+    width: 300px;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+
+.hidden {
+    display: none;
+}
+
+.notice-board, .advertisement {
+    margin-top: 20px;
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.notice-board ul {
+    list-style: none;
+    padding: 0;
+}
+
+.notice-board ul li {
+    margin-bottom: 5px;
+}

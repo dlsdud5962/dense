@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/page.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/sidebar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/buttons.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" 
+    rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="title-box">
+                <h1>Dense</h1>
+            </div>
+            <h2>Schedule</h2>
+            <ul>
+                <li><a href="#">crump</a></li>
+                <li><a href="#">wacking</a></li>
+                <li class="genre"><a href="#">hiphop</a></li>
+            </ul>
+            <h2>Artists</h2>
+            <ul>
+                <li><a href="#">locking</a></li>
+                <li><a href="#">else</a></li>
+            </ul>
+            <h2>My Page</h2>
+            <ul>
+                <li><img src="{{ url_for('static', filename='img/search.png') }}" width="50" height="50"></li>
+            </ul>
+        </div>
+        <div class="main-content">
+            <div class="text-content">
+                <p>
+                    <h5>밀도 있는(dense) 학습 경험을 통해 댄스의 매력적인 세계로 당신을 안내합니다.</h5>
+                    <h5>초보자부터 전문가까지 모두를 위한 다양한 수준으로 강좌가 구성되어 있습니다.</h5>
+                    <h5>댄스의 즐거움을 경험하고 싶다면, 지금 dense와 함께 춤추는 즐거움을 경험해보세요!</h5>
+                </p>
+            </div>
+            <div class="video-card">
+                <h3>인기 강의 보러가기</h3>
+                <img src="{{ url_for('static', filename='img/lesson.jpg') }}" width="300">
+            </div>
+            <div class="video-card">
+                <h3>컨테스트</h3>
+                <img src="{{ url_for('static', filename='img/contest.jpg') }}" width="300">
+                <p></p>
+            </div>
+            <div class="video-card">
+                <h3>Take a class</h3>
+                <img src="{{ url_for('static', filename='img/class.jpg') }}" width="300">
+            </div>
+        </div>
+    </div>
+    <div class="login-section">
+        <h2 id="welcome-message">Login</h2>
+        <form id="login-form">
+            <input type="text" id="login-id" placeholder="ID" required="">
+            <input type="password" id="login-pw" placeholder="PW" required="">
+            <button type="button" class="button" onclick="login()">Login</button>
+        </form>
+        <p id="signup-link">Don't have an account? <a href="/main/signup">Sign up</a></p>
+        <div id="logged-in-section" class="hidden">
+            <button id="logout-button" class="button" onclick="logout()">Logout</button>
+            <h2>Upload Video</h2>
+            <div class="upload">      
+                <input type="file" id="imageInput">
+                <button class="upload_button" onclick="uploadImage()">Upload</button>
+            </div>
+            <h2>Notice</h2>
+            <div class="notice-board">
+                <ul>
+                    <li>Notice 1</li>
+                    <li>Notice 2</li>
+                    <li>Notice 3</li>
+                    <li>Notice 4</li>
+                </ul>
+                <div>
+                    <img src="{{ url_for('static', filename='img/ad.png') }}" width="300">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- axios script -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    
+    <script>
+    async function login() {
+        const loginId = document.getElementById('login-id').value;
+        const loginPw = document.getElementById('login-pw').value;
+        console.log("Login attempt:", { userid: loginId, pw: loginPw });
+        try {
+            const res = await axios.post('/main/login', {
+                userid: loginId,
+                pw: loginPw
+            });
+            console.log('Server response:', res.data);
+            if (res.data.token) {
+                localStorage.setItem('token', res.data.token);
+                localStorage.setItem('username', res.data.username);
+                document.getElementById('welcome-message').textContent = `${res.data.username}님 환영합니다.`;
+                document.getElementById('login-form').style.display = 'none';
+                document.getElementById('signup-link').style.display = 'none';
+                document.getElementById('logged-in-section').classList.remove('hidden');
+            } else {
+                throw new Error('Login failed');
+            }
+        } catch (error) {
+            console.error('Login error:', error);
+            alert('Login failed');
+        }
+    }
+
+    function logout() {
+        localStorage.removeItem('token');
+        localStorage.removeItem('username');
+        document.getElementById('welcome-message').textContent = 'Login';
+        document.getElementById('login-form').style.display = 'block';
+        document.getElementById('signup-link').style.display = 'block';
+        document.getElementById('logged-in-section').classList.add('hidden');
+    }
+
+    async function checkLogin() {
+        const token = localStorage.getItem('token');
+        const username = localStorage.getItem('username');
+        if (token && username) {
+            try {
+                const res = await axios.get('/main/verify-token', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                console.log('Token verification response:', res.data);
+                document.getElementById('welcome-message').textContent = `${res.data.username}님 환영합니다.`;
+                document.getElementById('login-form').style.display = 'none';
+                document.getElementById('signup-link').style.display = 'none';
+                document.getElementById('logged-in-section').classList.remove('hidden');
+            } catch (error) {
+                console.error('Token verification error:', error);
+                logout();
+            }
+        }
+    }
+
+    window.onload = checkLogin;
+    </script>
+  
+  </body>
+</html>
